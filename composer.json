@@ -1,5 +1,5 @@
 {
-    "name": "laraeast/laravel-bootstrap-forms",
+    "name": "goldcarrot/laravel-bootstrap-forms",
     "description": "Provides an easy way to use bootstrap components within your Laravel projects.",
     "type": "package",
     "license": "MIT",
