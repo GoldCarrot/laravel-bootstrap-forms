@@ -1,4 +1,9 @@
-<div class="form-group{{ $errors->{$errorBag}->has($nameWithoutBrackets) ? ' has-error' : '' }}">
+<?php
+$invalidClass = $errors->{$errorBag}->has($nameWithoutBrackets) ? ' has-error' : '';
+
+$wrapperAttributes['class'] .= $invalidClass;
+?>
+<div {!! Html::attributes($wrapperAttributes) !!}>
     @if($label)
         {{ Form::label($name, $label, ['class' => 'content-label']) }}
     @endif

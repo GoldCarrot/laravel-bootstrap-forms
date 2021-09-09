@@ -1,4 +1,9 @@
-<div class="form-group{{ $errors->{$errorBag}->has($nameWithoutBrackets) ? ' has-error' : '' }}">
+<?php
+$invalidClass = $errors->{$errorBag}->has($nameWithoutBrackets) ? ' has-error' : '';
+
+$wrapperAttributes['class'] .= $invalidClass;
+?>
+<div {!! Html::attributes($wrapperAttributes) !!}>
     <div class="col-sm-offset-2 col-sm-10">
         <div class="checkbox">
             <label>

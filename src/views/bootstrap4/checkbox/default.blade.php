@@ -2,7 +2,7 @@
     $id = 'checkbox-'.Str::random('4').'-'.$name;
 ?>
 
-<div class="form-group">
+<div {!! Html::attributes($wrapperAttributes) !!}>
     <div class="form-check">
         @if($hasDefaultValue)
             {{ Form::hidden($name, $defaultValue) }}

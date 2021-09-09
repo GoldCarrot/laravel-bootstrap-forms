@@ -2,10 +2,10 @@
 
 namespace Laraeast\LaravelBootstrapForms\Components;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Str;
 
 abstract class BaseComponent implements Htmlable
 {
@@ -73,6 +73,15 @@ abstract class BaseComponent implements Htmlable
     protected $attributes = [];
 
     /**
+     * The input's wrapper attributes.
+     *
+     * @var array
+     */
+    protected $wrapperAttributes = [
+        'class' => 'form-group'
+    ];
+
+    /**
      * The select's options array.
      *
      * @var array
@@ -114,6 +123,7 @@ abstract class BaseComponent implements Htmlable
      * Initialized the input arguments.
      *
      * @param mixed ...$arguments
+     *
      * @return $this
      */
     abstract public function init(...$arguments);
@@ -162,6 +172,7 @@ abstract class BaseComponent implements Htmlable
 
     /**
      * @param $name
+     *
      * @return $this
      */
     public function name($name)
@@ -178,6 +189,7 @@ abstract class BaseComponent implements Htmlable
      * The key to be used for the view error bag.
      *
      * @param string $bag
+     *
      * @return $this
      */
     public function errorBag($bag = 'default')
@@ -189,6 +201,7 @@ abstract class BaseComponent implements Htmlable
 
     /**
      * @param $label
+     *
      * @return $this
      */
     public function label($label = null)
@@ -208,6 +221,7 @@ abstract class BaseComponent implements Htmlable
 
     /**
      * @param $value
+     *
      * @return $this
      */
     public function value($value)
@@ -219,6 +233,7 @@ abstract class BaseComponent implements Htmlable
 
     /**
      * @param $required
+     *
      * @return $this
      */
     public function required($required = true)
@@ -232,6 +247,7 @@ abstract class BaseComponent implements Htmlable
 
     /**
      * @param $autofocus
+     *
      * @return $this
      */
     public function autofocus($autofocus = true)
@@ -247,7 +263,8 @@ abstract class BaseComponent implements Htmlable
      * Add custom attribute.
      *
      * @param string|array $key
-     * @param null $value
+     * @param null         $value
+     *
      * @return $this
      */
     public function attribute($key, $value = null)
@@ -262,7 +279,27 @@ abstract class BaseComponent implements Htmlable
     }
 
     /**
+     * Add custom wrapper attribute.
+     *
+     * @param string|array $key
+     * @param null         $value
+     *
+     * @return $this
+     */
+    public function wrapperAttribute($key, $value = null)
+    {
+        if (is_array($key)) {
+            $this->wrapperAttributes = array_merge($this->attributes, $key);
+        } else {
+            $this->wrapperAttributes[$key] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
      * @param $note
+     *
      * @return $this
      */
     public function note($note)
@@ -280,16 +317,17 @@ abstract class BaseComponent implements Htmlable
 
             $bootstrap = explode('::', Config::get('laravel-bootstrap-forms.views'));
 
-            return $alias.'::'.$bootstrap[1].'.'.$path.'.'.$this->style;
+            return $alias . '::' . $bootstrap[1] . '.' . $path . '.' . $this->style;
         }
 
-        return Config::get('laravel-bootstrap-forms.views').'.'.$this->viewPath.'.'.$this->style;
+        return Config::get('laravel-bootstrap-forms.views') . '.' . $this->viewPath . '.' . $this->style;
     }
 
     /**
      * Set the component style.
      *
      * @param $style
+     *
      * @return $this
      */
     public function style($style)
@@ -303,6 +341,7 @@ abstract class BaseComponent implements Htmlable
      * Set the input inline validation errors option.
      *
      * @param bool $bool
+     *
      * @return $this
      */
     public function inlineValidation($bool = true)
@@ -320,14 +359,15 @@ abstract class BaseComponent implements Htmlable
     protected function render()
     {
         $properties = array_merge([
-            'label' => $this->label,
-            'name' => $this->name,
+            'label'               => $this->label,
+            'name'                => $this->name,
             'nameWithoutBrackets' => $this->nameWithoutBrackets,
-            'value' => $this->value,
-            'note' => $this->note,
-            'attributes' => $this->attributes,
-            'inlineValidation' => $this->inlineValidation,
-            'errorBag' => $this->errorBag,
+            'value'               => $this->value,
+            'note'                => $this->note,
+            'attributes'          => $this->attributes,
+            'wrapperAttributes'   => $this->wrapperAttributes,
+            'inlineValidation'    => $this->inlineValidation,
+            'errorBag'            => $this->errorBag,
         ], $this->viewComposer());
 
         return view($this->getViewPath())
@@ -349,6 +389,7 @@ abstract class BaseComponent implements Htmlable
      * Transform the properties to be used in view.
      *
      * @param array $properties
+     *
      * @return array
      */
     protected function transformProperties(array $properties)
