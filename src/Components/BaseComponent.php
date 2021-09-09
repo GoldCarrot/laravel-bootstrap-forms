@@ -289,7 +289,7 @@ abstract class BaseComponent implements Htmlable
     public function wrapperAttribute($key, $value = null)
     {
         if (is_array($key)) {
-            $this->wrapperAttributes = array_merge($this->attributes, $key);
+            $this->wrapperAttributes = array_merge($this->wrapperAttributes, $key);
         } else {
             $this->wrapperAttributes[$key] = $value;
         }
