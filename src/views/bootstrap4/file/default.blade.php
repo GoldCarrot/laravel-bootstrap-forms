@@ -5,7 +5,7 @@ $wrapperAttributes['class'] .= $invalidClass;
 ?>
 <div {!! Html::attributes($wrapperAttributes) !!}>
     @if($label)
-        {{ Form::label($name, $label) }}
+        {{ Form::label($name, $label, $labelAttributes) }}
     @endif
     {{ Form::file($name, array_merge(['class' => 'form-control'.$invalidClass], $attributes)) }}
 

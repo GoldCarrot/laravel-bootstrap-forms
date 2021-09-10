@@ -2,11 +2,13 @@
 $invalidClass = $errors->{$errorBag}->has($nameWithoutBrackets) ? ' has-error' : '';
 
 $wrapperAttributes['class'] .= $invalidClass;
+$labelAttributes['class'] = 'content-label col-md-2 ' . ($labelAttributes['class'] ?? '');
+
 ?>
 <div {!! Html::attributes($wrapperAttributes) !!}>
     <div class="row">
         @if($label)
-            {{ Form::label($name, $label, ['class' => 'content-label col-md-2']) }}
+            {{ Form::label($name, $label, $labelAttributes) }}
         @else
             <div class="col-md-2"></div>
         @endif

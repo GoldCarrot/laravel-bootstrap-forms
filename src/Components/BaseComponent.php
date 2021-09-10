@@ -82,6 +82,13 @@ abstract class BaseComponent implements Htmlable
     ];
 
     /**
+     * The input's label attributes.
+     *
+     * @var array
+     */
+    protected $labelAttributes = [];
+
+    /**
      * The select's options array.
      *
      * @var array
@@ -298,6 +305,25 @@ abstract class BaseComponent implements Htmlable
     }
 
     /**
+     * Add custom label attribute.
+     *
+     * @param string|array $key
+     * @param null         $value
+     *
+     * @return $this
+     */
+    public function labelAttribute($key, $value = null)
+    {
+        if (is_array($key)) {
+            $this->labelAttributes = array_merge($this->labelAttributes, $key);
+        } else {
+            $this->labelAttributes[$key] = $value;
+        }
+
+        return $this;
+    }
+
+    /**
      * @param $note
      *
      * @return $this
@@ -366,6 +392,7 @@ abstract class BaseComponent implements Htmlable
             'note'                => $this->note,
             'attributes'          => $this->attributes,
             'wrapperAttributes'   => $this->wrapperAttributes,
+            'labelAttributes'     => $this->labelAttributes,
             'inlineValidation'    => $this->inlineValidation,
             'errorBag'            => $this->errorBag,
         ], $this->viewComposer());

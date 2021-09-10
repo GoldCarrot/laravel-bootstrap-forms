@@ -2,10 +2,11 @@
 $invalidClass = $errors->{$errorBag}->has($nameWithoutBrackets) ? ' has-error' : '';
 
 $wrapperAttributes['class'] .= $invalidClass;
+$labelAttributes['class'] = 'content-label ' . ($labelAttributes['class'] ?? '');
 ?>
 <div {!! Html::attributes($wrapperAttributes) !!}>
     @if($label)
-        {{ Form::label($name, $label, ['class' => 'content-label']) }}
+        {{ Form::label($name, $label, $labelAttributes) }}
     @endif
 
     {{ Form::password($name, array_merge(['class' => 'form-control'], $attributes)) }}

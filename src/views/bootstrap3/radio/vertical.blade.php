@@ -6,7 +6,7 @@ $wrapperAttributes['class'] .= $invalidClass;
 <div {!! Html::attributes($wrapperAttributes) !!}>
     <div class="col-sm-offset-2 col-sm-10">
         <div class="checkbox">
-            <label>
+            <label {!! Html::attributes($labelAttributes) !!}>
                 {{ Form::radio($name, $value, $checked) }} {{ $label }}
             </label>
         </div>

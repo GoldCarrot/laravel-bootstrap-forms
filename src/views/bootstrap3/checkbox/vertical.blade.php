@@ -6,7 +6,7 @@ $wrapperAttributes['class'] .= $invalidClass;
 <div {!! Html::attributes($wrapperAttributes) !!}>
     <div class="col-sm-offset-2 col-sm-10">
         <div class="checkbox">
-            <label>
+            <label {!! Html::attributes($labelAttributes) !!}>
                 @if($hasDefaultValue)
                     {{ Form::hidden($name, $defaultValue) }}
                 @endif
