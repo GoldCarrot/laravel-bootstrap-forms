@@ -185,7 +185,7 @@ abstract class BaseComponent implements Htmlable
     public function name($name)
     {
         $this->name = $name;
-        $this->nameWithoutBrackets = str_replace('[]', '', $name);
+        $this->nameWithoutBrackets = str_replace(['[]', '][', '[', ']'], ['', '.', '.', ''], $name);
 
         $this->nameHasBrackets = $this->name != $this->nameWithoutBrackets;
 
